@@ -6,6 +6,6 @@ ExecStart=/usr/ifi/ifi-tidal/play.sh
 User=root
 Group=root
 RestartSec=1
-KillMode=process
+KillMode=control-group
 [Install]
 WantedBy=multi-user.target

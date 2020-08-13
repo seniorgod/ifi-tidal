@@ -43,9 +43,15 @@ if [ -n "${OUTPUT}" ]; then
 				--tc-certificate-path "${SAME_DIR}id_certificate/IfiAudio_ZenStream.dat" \
 				--netif-for-deviceid eth0 \
 				-f "${BROADCAST_NAME}" \
+				--codec-mpegh true \
+				--codec-mqa true \
+				--model-name "iFi Streamer" \
+				--disable-app-security false \
+				--disable-web-security false \
+				--enable-mqa-passthrough false \
 				--playback-device "${OUTPUT}" \
 				--log-level 1
 else
-	echo "Error: no output devices at all!"
+	echo "Error: no output devices at all!" >> /dev/stderr
 	exit 1
 fi
