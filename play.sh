@@ -21,19 +21,11 @@ BROADCAST_NAME="${HOSTNAME^}'s Streamer"
 # Get the current available output devices
 ${SAME_DIR}pa_devs/run.sh
 
-# Get the user-set output device from volumio's UI configuration
-GREP=$(cat /data/configuration/audio_interface/alsa_controller/config.json | jq -r '.outputdevicename.value')
-if [ -e ${SAME_DIR}pa_devs/devices ]; then
-	# Match the device name acceptable for portaudio
-	OUTPUT=$(grep -i "${GREP}" ${SAME_DIR}pa_devs/devices | cut -d '=' -f 2)
-	if [ -z "${OUTPUT}" ]; then
-		# If no device's name matched, set the USB DAC as default
-		OUTPUT=$(grep -i 'usb' ${SAME_DIR}pa_devs/devices | cut -d '=' -f 2)
-		if [ -z "${OUTPUT}" ]; then
-			# If no USB DAC, set the first available device as default
-			OUTPUT=$(grep -i 'device#0' ${SAME_DIR}pa_devs/devices | cut -d '=' -f 2)
-		fi
-	fi
+# Set the USB DAC as default
+OUTPUT=$(grep -i 'usb' ${SAME_DIR}pa_devs/devices | cut -d '=' -f 2)
+if [ -z "${OUTPUT}" ]; then
+	# If no USB DAC, set the first available device as default
+	OUTPUT=$(grep -i 'device#0' ${SAME_DIR}pa_devs/devices | cut -d '=' -f 2)
 fi
 
 if [ -n "${OUTPUT}" ]; then
