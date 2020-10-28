@@ -1,6 +1,14 @@
 #!/bin/bash
 set -e # exit with nonzero exit code if anything fails
 
+ARCH=$(dpkg --print-architecture)
+SHC=$(which shc)
+
+if [[ "${ARCH}" != "armhf" || -z "${SHC}" ]]; then
+	echo "please do this script under iFi Streamer system, and install shc. Aborting..."
+	exit 1
+fi
+
 [ -d ./ifi-tidal-release ] && rm -rf ./ifi-tidal-release
 mkdir ifi-tidal-release
 
