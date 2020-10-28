@@ -12,6 +12,9 @@ fi
 [ -d ./ifi-tidal-release ] && rm -rf ./ifi-tidal-release
 mkdir ifi-tidal-release
 
+shc -U -f play.sh -o play
+rm *.x.c
+
 cp -r file-deploy.sh bin id_certificate pa_devs ifi-streamer-tidal-connect.service licenses play ifi-tidal-release/
 rm -rf ifi-tidal-release/pa_devs/scripts ifi-tidal-release/pa_devs/src
 cd ifi-tidal-release
